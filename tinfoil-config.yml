@@ -1,0 +1,30 @@
+shim-version: v0.3.12@sha256:b81f2295ae6750d61e94f810ce24077360001b6ec795d13643f3170df29e304d
+cvm-version: 0.6.6
+cpus: 16
+memory: 65536
+
+models:
+  - name: "llama3-1-8b"
+    repo: "meta-llama/Llama-3.1-8B-Instruct@0e9e39f249a16976918f6564b8830bc894c89659"
+    mpk: "db3861060e603e72b295bf2d8adb41c71ed63c966b8309dfc726d20344f1aa69_32132587520_a2ed76bc-f064-58fd-bfe0-41c84b38ecf1"
+
+containers:
+  - name: "llama3-1-8b"
+    image: "vllm/vllm-openai:v0.15.1-cu130@sha256:6daf4c3bab1bfb0180069bd8f2a035c1c981a424584f5b0480caa9efd9933f72"
+    runtime: nvidia
+    gpus: all
+    ipc: host
+    command: [
+      "--model", "/tinfoil/mpk/mpk-db3861060e603e72b295bf2d8adb41c71ed63c966b8309dfc726d20344f1aa69",
+      "--served-model-name", "llama3-1-8b",
+      "--port", "8001"
+    ]
+
+shim:
+  listen-port: 443
+  upstream-port: 8001
+  authenticated: true
+  paths:
+    - /v1/chat/completions
+    - /metrics
+    - /health
