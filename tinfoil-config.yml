@@ -23,7 +23,6 @@ containers:
 shim:
   listen-port: 443
   upstream-port: 8001
-  authenticated: true
   paths:
     - /v1/chat/completions
     - /metrics
