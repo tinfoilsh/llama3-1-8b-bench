@@ -14,6 +14,8 @@ containers:
     runtime: nvidia
     gpus: all
     ipc: host
+    env:
+      - LD_LIBRARY_PATH: "/usr/local/nvidia/lib64:/usr/local/nvidia/lib:/usr/lib/x86_64-linux-gnu"
     command: [
       "--model", "/tinfoil/mpk/mpk-db3861060e603e72b295bf2d8adb41c71ed63c966b8309dfc726d20344f1aa69",
       "--served-model-name", "llama3-1-8b",
